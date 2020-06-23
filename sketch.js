@@ -1,25 +1,25 @@
-let imagemCenario;
-let imagemPersonagem;
-let cenario;
-let personagem;
-let somDoJogo;
+let imgCena;
+let imgChar;
+let cena;
+let char;
+let bgSound;
 
 function preload(){
-    imagemCenario = loadImage('./imagens/cenario/floresta.png');
-    imagemPersonagem = loadImage('./imagens/personagem/correndo.png');
-    somDoJogo = loadSound('./sons/trilha_jogo.mp3');    
+    imgCena = loadImage('./images/bg/forest.png');
+    imgChar = loadImage('./images/char/running.png');
+    bgSound = loadSound('./sound/bg_sound.mp3');
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    cenario = new Cenario(imagemCenario, 3);
-    personagem = new Personagem(imagemPersonagem);
-    frameRate(40);
-    somDoJogo.loop();
+    cena = new Background(imgCena, 3);
+    char = new Character(imgChar);
+    frameRate(42);
+    bgSound.loop();
 }
 
 function draw() {
-    cenario.exibe();
-    cenario.move();
-    personagem.exibe();
+    cena.show();
+    cena.move();
+    char.show();
 }
