@@ -1,25 +1,25 @@
-class Character {
-    constructor(image) {
-        this.image = image;
-        this.x = 0;
-        this.y = 0;
-        this.yMax = 810;
-        this.xMax = 660;
+
+class Character extends Animate{
+    constructor(image, x, width, height, spriteWidth, spriteHeight, spriteX, spriteY, spriteXMax, spriteYMax) {
+        super(image, x, width, height, spriteWidth, spriteHeight, spriteX, spriteY, spriteXMax, spriteYMax);
+        this.ground = windowHeight - this.height;
+        this.y = this.ground;
+        this.jumpSpeed = 0;
+        this.gravity = 3;
     }
 
-    show(){
-        image(this.image, 0, height - 135, 110, 135, this.x, this.y, 220, 270);
-        this.animate();
+    jump() {
+        this.jumpSpeed = -35;
     }
 
-    animate(){
-        this.x += 220;
-        if(this.x > this.xMax) {
-            this.x = 0;
-            this.y += 270;
-            if(this.y > this.yMax) {
-                this.y = 0;
-            }
-        }
+    applyGravity() {
+        this.y += this.jumpSpeed;
+        this.jumpSpeed += this.gravity;
+        if(this.y > this.ground) { this.y = this.ground; }
+    }
+
+    colliding(enemy){
+        const precision = .7;
+        return collideRectRect(this.x, this.y, this.width * precision, this.height * precision, enemy.x, enemy.y, enemy.width * precision, enemy.height * precision);
     }
 }
